@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -13,6 +14,7 @@ import {
 } from "./sidebar";
 import {
   BoxIcon,
+  Home,
   ListFilter,
   ShoppingBag,
   ShoppingCart,
@@ -22,8 +24,10 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import SiderbarProfile from "./siderbar-profile";
+import { usePathname } from "next/navigation";
 
 export default function AppSidebar() {
+  const path = usePathname();
   const sidebarItem = {
     transaction: [
       {
@@ -70,12 +74,42 @@ export default function AppSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  isActive={path === "/home"}
+                  className={
+                    path === "/home"
+                      ? ""
+                      : "*:text-muted-foreground hover:bg-sidebar-primary hover:*:text-sidebar-primary-foreground"
+                  }
+                >
+                  <Link href="/home">
+                    <Home />
+                    Dashboard
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
           <SidebarGroupLabel>Transaction</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {sidebarItem.transaction.map((item, i) => (
                 <SidebarMenuItem key={i}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={path === item.url}
+                    className={
+                      path === item.url
+                        ? "*:text-sidebar-accent-foreground bg-primary"
+                        : "*:text-muted-foreground hover:bg-sidebar-primary hover:*:text-sidebar-primary-foreground"
+                    }
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.name}</span>
@@ -92,7 +126,15 @@ export default function AppSidebar() {
             <SidebarMenu>
               {sidebarItem.storage.map((item, i) => (
                 <SidebarMenuItem key={i}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={path === item.url}
+                    className={
+                      path === item.url
+                        ? "*:text-sidebar-accent-foreground bg-primary"
+                        : "*:text-muted-foreground hover:bg-sidebar-primary hover:*:text-sidebar-primary-foreground"
+                    }
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.name}</span>
@@ -109,7 +151,15 @@ export default function AppSidebar() {
             <SidebarMenu>
               {sidebarItem.other.map((item, i) => (
                 <SidebarMenuItem key={i}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={path === item.url}
+                    className={
+                      path === item.url
+                        ? "*:text-sidebar-accent-foreground bg-primary"
+                        : "*:text-muted-foreground hover:bg-sidebar-primary hover:*:text-sidebar-primary-foreground"
+                    }
+                  >
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.name}</span>

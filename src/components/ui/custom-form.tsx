@@ -26,8 +26,8 @@ export default function CustomForm({ title, desc, field }: customFormProps) {
         <FieldLegend>{title}</FieldLegend>
         <FieldDescription>{desc}</FieldDescription>
         <FieldGroup>
-          {field.map((item) => (
-            <Field>
+          {field.map((item, i) => (
+            <Field key={i}>
               <FieldLabel>{item.label}</FieldLabel>
               <Input placeholder={item.placeholder} />
             </Field>
